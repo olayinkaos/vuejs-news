@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+	<style>
+		.container {
+			padding: 20px 0
+		}
+		.column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
+			float: left; 
+		}
+		.main_heading {
+			margin: 10px 0 30px;
+		}
+		.callout {
+			margin-bottom: 40px;
+		}
+		select {
+			text-transform:capitalize;
+		}
+		.loader {
+			text-align: center;
+			padding: 40px;
+		}
+		.uppercase {
+			text-transform: uppercase;
+		}
+	</style>
+	<title>The greatest news app ever</title>
+</head>
+<body>
+	<div class="container" id="app">
+		<h3 class="text-center">VueNews</h3>
+
+		<section class="callout secondary">
+			<h5 class="text-center">Filter by Category</h5>
+			<form>
+				<div class="row">
+					<div class="large-6 columns">
+						<select v-model="section">
+							<option v-for="section in sections" :value="section">{{ section }}</option>
+						</select>
+					</div>
+					<div class="medium-6 columns">
+						<a @click="getPosts(section)" class="button expanded">Retrieve</a>
+					</div>
+				</div>
+			</form>
+		</section>
+
+		<h5 class="text-center uppercase" v-if="!loading">{{ title }}</b></h5>
+		<div v-if="loading" class="loader"><img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="loader"></div>
+
+		<news-list v-if="!loading" :results="results"></news-list>
+	</div>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<script src="config.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
